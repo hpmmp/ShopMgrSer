@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://code.alibabatech.com/schema/dubbo
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd"
+       default-autowire="byName">
+
+    <context:component-scan base-package="com.shop.**"/>
+
+    <!-- Enables the Spring Task @Scheduled programming model -->
+    <task:executor id="executor" pool-size="5"/>
+    <task:scheduler id="scheduler" pool-size="5"/>
+    <task:annotation-driven executor="executor" scheduler="scheduler"/>
+
+    <dubbo:provider timeout="6000" retries="0"/>
+
+    <!-- Application name -->
+    <dubbo:application name="shop"/>
+
+    <!-- registry address, used for service to register itself -->
+    <!--txl本地 <dubbo:registry address="dubbo://127.0.0.1:9090" register="false" />  -->
+
+    <!-- expose this service through dubbo protocol, through port 20880 -->
+    <!--txl本地<dubbo:protocol name="dubbo" port="20880" />  -->
+
+    <!--txl<dubbo:registry address="${zookepper.url}"/>-->
+    <dubbo:registry id="cmaTcnm" protocol="zookeeper" address="${zookepper.url}" group="Tcnm"/>
+
+    <!-- expose this service through dubbo protocol, through port 30990 -->
+    <dubbo:protocol name="dubbo" port="30990"/>
+
+    <!-- which service interface do we expose? -->
+    <!-- interface fo system basic -->
+    <!-- ********************** Manage end ********************** -->
+
+    <!-- interface fo system basic -->
+    <dubbo:service interface="com.shop.service.sys.ISysUser" ref="sysUserService"/>
+    <dubbo:service interface="com.shop.service.IShopOrder" ref="shopOrderService"/>
+    <dubbo:service interface="com.shop.cache.ICacheService" ref="cacheService"/>
+    <dubbo:service interface="com.shop.service.ILoggingService" ref="loggingService"/>
+    <dubbo:service interface="com.shop.service.IHbaseService" ref="hbaseService"/>
+    <dubbo:service interface="com.shop.service.IStatisticsSerivce" ref="statisticsSerivce"/>
+
+
+    <bean id="sysUserService" class="com.shop.service.sys.impl.SysUserImpl"/>
+    <bean id="shopOrderService" class="com.shop.service.impl.ShopOrderImpl"/>
+    <bean id="cacheService" class="com.shop.cache.impl.CacheServiceImpl"/>
+    <bean id="loggingService" class="com.shop.service.impl.LoggingServiceImpl"/>
+    <bean id="hbaseService" class="com.shop.service.impl.HbaseServiceImpl"/>
+    <bean id="statisticsSerivce" class="com.shop.service.impl.StatisticsSerivceImpl"/>
+
+</beans>

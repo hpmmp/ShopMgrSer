@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--主数据源-->
+    <bean id="dataSourceMaster" class="org.logicalcobwebs.proxool.ProxoolDataSource">
+		<property name="driver">
+			<value>${jdbc.driver}</value>
+		</property>
+		<property name="driverUrl">
+			<value>jdbc:mysql://192.168.17.12:3306/connect_test?user=root&amp;password=123456&amp;useUnicode=true&amp;characterEncoding=GBK</value>
+		</property>
+		<property name="user" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="alias" value="world" />
+		<property name="testBeforeUse" value="true" />
+		<property name="houseKeepingSleepTime" value="90000" />
+		<property name="prototypeCount" value="0" />
+		<property name="maximumConnectionCount" value="200" />
+		<property name="minimumConnectionCount" value="2" />
+		<property name="simultaneousBuildThrottle" value="50" />
+		<property name="maximumConnectionLifetime" value="14400000" />
+		<property name="houseKeepingTestSql" value="select CURRENT_DATE" />
+	</bean>
+
+    <!--从数据源-->
+    <bean id="dataSourceSlave" class="org.logicalcobwebs.proxool.ProxoolDataSource">
+		<property name="driver">
+			<value>${jdbc.driver}</value>
+		</property>
+	<property name="driverUrl">
+		<value>jdbc:mysql://192.168.17.12:3306/connect_test?user=root&amp;password=123456&amp;useUnicode=true&amp;characterEncoding=GBK</value>
+		</property>
+		<property name="user" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="alias" value="world" />
+		<property name="testBeforeUse" value="true" />
+		<property name="houseKeepingSleepTime" value="90000" />
+		<property name="prototypeCount" value="0" />
+		<property name="maximumConnectionCount" value="200" />
+		<property name="minimumConnectionCount" value="2" />
+		<property name="simultaneousBuildThrottle" value="50" />
+		<property name="maximumConnectionLifetime" value="14400000" />
+		<property name="houseKeepingTestSql" value="select CURRENT_DATE" />
+	</bean>
+
+	<!-- 统计报表数据源 -->
+	<bean id="numStatistics" class="org.logicalcobwebs.proxool.ProxoolDataSource">
+		<property name="driver">
+			<value>${jdbc.driver}</value>
+		</property>
+	<property name="driverUrl">
+		<value>jdbc:mysql://192.168.17.12:3306/connect_test?user=root&amp;password=123456&amp;useUnicode=true&amp;characterEncoding=GBK</value>
+		</property>
+		<property name="user" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="alias" value="numStatistics" />
+		<property name="testBeforeUse" value="true" />
+		<property name="houseKeepingSleepTime" value="90000" />
+		<property name="prototypeCount" value="0" />
+		<property name="maximumConnectionCount" value="20" />
+		<property name="minimumConnectionCount" value="2" />
+		<property name="simultaneousBuildThrottle" value="50" />
+		<property name="maximumConnectionLifetime" value="14400000" />
+		<property name="houseKeepingTestSql" value="select CURRENT_DATE" />
+	</bean>
+
+</beans>

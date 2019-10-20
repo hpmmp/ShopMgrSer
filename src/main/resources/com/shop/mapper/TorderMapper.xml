@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shop.dao.TOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.shop.entity.Torder" >
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="productId" property="productId" jdbcType="VARCHAR" />    
+    <result column="productName" property="productName" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="DOUBLE" />
+    <result column="orderNum" property="orderNum" jdbcType="INTEGER" />
+    <result column="money" property="money" jdbcType="DOUBLE" />
+    <result column="orderTime" property="orderTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+    <select id="queryOrderInfos" resultMap="BaseResultMap">
+      select  id,productId,productName,price,orderNum,money,orderTime from t_order where orderTime <![CDATA[ >= ]]> STR_TO_DATE(#{beginDate},'%Y-%m-%d %H:%i:%s') and orderTime<![CDATA[ <= ]]>#{endDate} order by orderTime 
+	</select>
+</mapper>
