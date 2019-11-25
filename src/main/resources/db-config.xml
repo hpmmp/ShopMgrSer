@@ -10,7 +10,7 @@
 			<value>${jdbc.driver}</value>
 		</property>
 		<property name="driverUrl">
-			<value>jdbc:mysql://192.168.17.12:3306/connect_test?user=root&amp;password=123456&amp;useUnicode=true&amp;characterEncoding=GBK</value>
+			<value>jdbc:mysql://localhost:3306/connect_test?user=root&amp;password=123456&amp;useUnicode=true&amp;characterEncoding=GBK</value>
 		</property>
 		<property name="user" value="${jdbc.username}" />
 		<property name="password" value="${jdbc.password}" />
@@ -31,7 +31,7 @@
 			<value>${jdbc.driver}</value>
 		</property>
 	<property name="driverUrl">
-		<value>jdbc:mysql://192.168.17.12:3306/connect_test?user=root&amp;password=123456&amp;useUnicode=true&amp;characterEncoding=GBK</value>
+		<value>jdbc:mysql://localhost:3306/connect_test?user=root&amp;password=123456&amp;useUnicode=true&amp;characterEncoding=GBK</value>
 		</property>
 		<property name="user" value="${jdbc.username}" />
 		<property name="password" value="${jdbc.password}" />
@@ -52,7 +52,7 @@
 			<value>${jdbc.driver}</value>
 		</property>
 	<property name="driverUrl">
-		<value>jdbc:mysql://192.168.17.12:3306/connect_test?user=root&amp;password=123456&amp;useUnicode=true&amp;characterEncoding=GBK</value>
+		<value>jdbc:mysql://localhost:3306/connect_test?user=root&amp;password=123456&amp;useUnicode=true&amp;characterEncoding=GBK</value>
 		</property>
 		<property name="user" value="${jdbc.username}" />
 		<property name="password" value="${jdbc.password}" />
