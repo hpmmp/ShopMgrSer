@@ -3,8 +3,6 @@ package com.shop.model;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Column;
-
 public class ShopOrderInfo implements Serializable {
 	private static final long serialVersionUID = 1L;
  
