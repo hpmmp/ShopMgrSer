@@ -12,7 +12,7 @@ http://www.springframework.org/schema/context/spring-context.xsd">
         <constructor-arg>
             <map>
                 <entry key="bootstrap.servers" value="${bootstrap.servers}"/>
-                <entry key="group.id" value="${group.id}"/>
+                <!--<entry key="group.id" value="${group.id}"/>-->
                 <entry key="retries" value="${retries}"/>
                 <entry key="batch.size" value="${batch.size}"/>
                 <entry key="linger.ms" value="${linger.ms}"/>

@@ -34,6 +34,16 @@ public class KafKaConsumer implements MessageListener<Integer, String> {
         System.out.println(records.value());
         Torder torder = JSON.parseObject(records.value(),Torder.class);
 
+        //hbase写入
+        try {
+            System.out.println("开始记录写入hbase");
+            hbaseOperate.put(torder);
+            logger.info("hbase统计记录完成");
+            System.out.println("hbase统计记录完成");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //hive写入
         Date time = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         System.out.println("text:"+"订购了编号{"+torder.getProductId()+"}的"+torder.getProductName());
@@ -46,13 +56,5 @@ public class KafKaConsumer implements MessageListener<Integer, String> {
         hiveOperate.insertLogInfo(loggingInfoPO);
         logger.info("hive日志记录完成");
         System.out.println("hive日志记录完成");
-        //hbase写入
-        try {
-            hbaseOperate.put(torder);
-            logger.info("hbase统计记录完成");
-            System.out.println("hbase统计记录完成");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }

@@ -39,7 +39,7 @@ public class Provider extends Thread implements SignalHandler {
 	}
 
 	public boolean startup() {
-		System.getProperties().setProperty("HADOOP_USER_NAME", "userb21042c79426");
+		//System.getProperties().setProperty("HADOOP_USER_NAME", "userb21042c79426");
 		appContext = new ClassPathXmlApplicationContext(new String[] { "applicationContext.xml" });
 		// appContext.registerShutdownHook();
 		appContext.start();

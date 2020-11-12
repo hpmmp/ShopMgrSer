@@ -2,6 +2,8 @@ package com.shop.dao;
 
 import com.shop.entity.LoggingInfoPO;
 import com.shop.message.OrderInfoReq;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -20,6 +22,8 @@ public class HiveOperate {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
+    private Logger logger = LoggerFactory.getLogger(getClass());
+
     /**
      * 批量插入数据到hive
      */
@@ -37,8 +41,12 @@ public class HiveOperate {
      * 单条插入
      */
     public int insertLogInfo(LoggingInfoPO loggingInfoPO){
+        logger.info("into HiveOperate-insertLogInfo");
+        logger.info("req: "+loggingInfoPO.toString());
     	String sql = "insert into logging(type,text,time) values(?,?,?)";
     	int updateCount = jdbcTemplate.update(sql,loggingInfoPO.getType(),loggingInfoPO.getText(),loggingInfoPO.getTime());
+        System.out.println("更新行数："+updateCount);
+        logger.info("end HiveOperate-jdbcTemplate.update");
     	return updateCount;
     }
     
@@ -49,16 +57,22 @@ public class HiveOperate {
      * @return List<LoggingInfoPO>
      */
     public List<LoggingInfoPO> queryLogInfos(OrderInfoReq req){
+        logger.info("into HiveOperate-queryLogInfos");
+        logger.info("req: "+req.toString());
         //开始时间和结束时间格式为yy-mm-dd
         String beginDay = req.getBeginDate();
         String endDay = req.getEndDate();
 
         beginDay = strFormat(beginDay);
         endDay = strFormat(endDay);
-        String sql = "select type,text,time from logging where time>="+"\""+beginDay+"\""+" and time <="+"\""+endDay+"\" order by time";
-        //String sql = "select type,text,time from logging where time>="+"\""+beginDay+"\""+" and time <="+"\""+endDay+"\"";
+        //String sql = "select type,text,time from logging where time>="+"\""+beginDay+"\""+" and time <="+"\""+endDay+"\" order by time";
+        String sql = "select type,text,time from logging where time>="+"\""+beginDay+"\""+" and time <="+"\""+endDay+"\" ";
         RowMapper<LoggingInfoPO> loggingInfoPORowMapper = new BeanPropertyRowMapper<>(LoggingInfoPO.class);
         List<LoggingInfoPO> list = jdbcTemplate.query(sql,loggingInfoPORowMapper);
+        for (LoggingInfoPO loggingInfoPO : list) {
+            logger.info("loggingInfoPO"+loggingInfoPO.toString());
+        }
+        logger.info("end HiveOperate-jdbcTemplate.query");
         return list;
     }
 

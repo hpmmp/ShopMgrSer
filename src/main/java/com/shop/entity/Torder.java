@@ -1,13 +1,10 @@
 package com.shop.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
 @Table(name = "t_order")
 public class Torder implements Serializable {
@@ -54,6 +51,7 @@ public class Torder implements Serializable {
      * 订购时间
      */
     @Column(name = "orderTime")
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date orderTime;
  
     public Integer getId() {

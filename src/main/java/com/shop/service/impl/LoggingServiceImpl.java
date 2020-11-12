@@ -8,6 +8,8 @@ import com.shop.message.StatusCode;
 import com.shop.model.LoggingInfoBO;
 import com.shop.service.ILoggingService;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -26,12 +28,21 @@ public class LoggingServiceImpl implements ILoggingService {
     @Autowired
     HiveOperate hiveOperate;
 
+    private Logger logger = LoggerFactory.getLogger(getClass());
+
     @Override
     public PubResultSet<LoggingInfoBO> queryLogInfos(String beginDate, String endDate) {
+
+        logger.info("into LoggingServiceImpl--queryLogInfos");
+        logger.info("beginDate:"+beginDate+"  "+"endDate:"+endDate);
         OrderInfoReq req=new OrderInfoReq();
         req.setBeginDate(beginDate);
         req.setEndDate(endDate);
         List<LoggingInfoPO> loggingInfoPOList = hiveOperate.queryLogInfos(req);
+
+        for (LoggingInfoPO loggingInfoPO : loggingInfoPOList) {
+            logger.info("loggingInfoPO"+loggingInfoPO.toString());
+        }
 
         PubResultSet<LoggingInfoBO> obdResultSet = new PubResultSet<>();
         //将POList组装到BOList

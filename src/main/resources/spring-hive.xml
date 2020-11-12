@@ -20,13 +20,20 @@
         <property name="dataSource" ref="hiveDataSource"/>
     </bean>-->
 
+    <bean id="hiveKerberos" class="com.shop.utils.HiveKerberosDruidDataSource">
+        <constructor-arg name="kerberos" value="true"/>
+        <constructor-arg name="krb5Conf" value="${kerberos.krb5Conf}"/>
+        <constructor-arg name="user" value="${kerberos.user}"/>
+        <constructor-arg name="path" value="${kerberos.keytab}"/>
+    </bean>
+
     <!-- 配置HiveTemplate -->
     <bean id="hiveTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
         <constructor-arg ref="hiveDataSource"/>
         <qualifier value="hiveTemplate"/>
     </bean>
 
-    <bean id="hiveDataSource" class="com.alibaba.druid.pool.DruidDataSource">
+    <bean id="hiveDataSource" class="com.alibaba.druid.pool.DruidDataSource" depends-on="hiveKerberos">
         <property name="driverClassName" value="org.apache.hive.jdbc.HiveDriver"/>
         <property name="url" value="${jdbc.hive.url}"/>
         <property name="username" value="${jdbc.hive.user}"/>

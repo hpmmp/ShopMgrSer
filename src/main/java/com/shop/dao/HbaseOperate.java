@@ -29,7 +29,7 @@ import java.util.List;
  * @date 2019/9/2 11:26
  **/
 @Component
-public class HbaseOperate {
+public class HbaseOperate{
     private Logger logger = LoggerFactory.getLogger(getClass());
     @Autowired
     HbaseTemplate hbaseTemplate;

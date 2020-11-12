@@ -1,5 +1,7 @@
 package com.shop.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -43,7 +45,6 @@ public class ShopOrderInfo implements Serializable {
 	    /**
 	     * 订购时间
 	     */
- 
 	    private Date orderTime;
 		  public Integer getId() {
 				return id;

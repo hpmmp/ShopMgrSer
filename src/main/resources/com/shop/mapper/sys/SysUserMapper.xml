@@ -13,6 +13,6 @@
     <result column="password" property="password" jdbcType="VARCHAR" />
   </resultMap>
    <select id="getByAccount" resultMap="BaseResultMap">
-      select  id,account,createdTS,status,name,money,password from t_user where   account=#{account}  
+      select  id,account,createdTS,status,`name`,password from t_user where   account=#{account}
 	</select>
 </mapper>
